@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparativo de Plataformas Conversacionales</title>
+  <style>
+    :root {
+      --background-dark: #050b1f;
+      --card-bg: #0a1535;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --border-color: rgba(102, 51, 255, 0.2);
+      --highlight: rgba(102, 51, 255, 0.1);
+      
+      --adi-color: #00a6ff;
+      --koreai-color: #9c55ff;
+      --voiceflow-color: #ff3e9d;
+      
+      --adi-gradient: linear-gradient(135deg, #00a6ff 0%, #0066ff 100%);
+      --koreai-gradient: linear-gradient(135deg, #9c55ff 0%, #6a1b9a 100%);
+      --voiceflow-gradient: linear-gradient(135deg, #ff3e9d 0%, #ff6b00 100%);
+      
+      --main-gradient: linear-gradient(135deg, #9c55ff 0%, #ff3e9d 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--background-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2.5rem 0;
+      background: linear-gradient(180deg, rgba(102, 51, 255, 0.1) 0%, rgba(255, 62, 157, 0.1) 100%);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(102, 51, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 166, 255, 0.05) 0%, rgba(156, 85, 255, 0.05) 50%, rgba(255, 62, 157, 0.05) 100%);
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: var(--main-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* Selector de idioma */
+    .language-switcher {
+      margin: 1rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .language-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      font-size: 1.2rem; /* Aumentamos un poco el tamaño para la bandera */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .language-btn.active {
+      background: var(--adi-gradient);
+      border-color: var(--adi-color);
+      color: #fff;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .tab {
+      padding: 0.75rem 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(102, 51, 255, 0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: var(--text-secondary);
+    }
+
+    .tab.active {
+      background-color: rgba(102, 51, 255, 0.1);
+      border-color: var(--adi-color);
+      color: var(--text-primary);
+      box-shadow: 0 4px 12px rgba(0, 166, 255, 0.2);
+    }
+
+    .tab:hover:not(.active) {
+      border-color: rgba(255, 62, 157, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 992px) {
+      .card-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(102, 51, 255, 0.15);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .adi-header {
+      background: var(--adi-gradient);
+    }
+
+    .koreai-header {
+      background: var(--koreai-gradient);
+    }
+
+    .voiceflow-header {
+      background: var(--voiceflow-gradient);
+    }
+
+    .card-logo {
+      width: 80px;
+      height: 80px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo-placeholder {
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .adi-text {
+      color: var(--adi-color);
+    }
+
+    .koreai-text {
+      color: var(--koreai-color);
+    }
+
+    .voiceflow-text {
+      color: var(--voiceflow-color);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .feature-item {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .feature-item::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0.2rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .adi-check::before {
+      color: var(--adi-color);
+    }
+
+    .koreai-check::before {
+      color: var(--koreai-color);
+    }
+
+    .voiceflow-check::before {
+      color: var(--voiceflow-color);
+    }
+
+    .highlight-text {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .card-footer {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .btn-adi {
+      background: var(--adi-gradient);
+      color: white;
+    }
+
+    .btn-adi:hover {
+      box-shadow: 0 4px 15px rgba(0, 166, 255, 0.4);
+    }
+
+    .btn-koreai {
+      background: var(--koreai-gradient);
+      color: white;
+    }
+
+    .btn-koreai:hover {
+      box-shadow: 0 4px 15px rgba(156, 85, 255, 0.4);
+    }
+
+    .btn-voiceflow {
+      background: var(--voiceflow-gradient);
+      color: white;
+    }
+
+    .btn-voiceflow:hover {
+      box-shadow: 0 4px 15px rgba(255, 62, 157, 0.4);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(102, 51, 255, 0.2);
+    }
+
+    .comparison-table th, 
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .comparison-table th {
+      background-color: rgba(102, 51, 255, 0.1);
+      font-weight: 700;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+      min-width: 200px;
+      font-weight: 600;
+      background-color: rgba(102, 51, 255, 0.05);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tr:hover td {
+      background-color: rgba(102, 51, 255, 0.05);
+    }
+
+    .adi-column {
+      background-color: rgba(0, 166, 255, 0.05);
+    }
+
+    .highlight-col {
+      position: relative;
+    }
+
+    .highlight-col::after {
+      content: "Recomendado";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--adi-gradient);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .feature-value {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .rating {
+      display: flex;
+      gap: 3px;
+    }
+
+    .rating-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .adi-rating .rating-dot.filled {
+      background-color: var(--adi-color);
+      box-shadow: 0 0 5px var(--adi-color);
+    }
+
+    .koreai-rating .rating-dot.filled {
+      background-color: var(--koreai-color);
+      box-shadow: 0 0 5px var(--koreai-color);
+    }
+
+    .voiceflow-rating .rating-dot.filled {
+      background-color: var(--voiceflow-color);
+      box-shadow: 0 0 5px var(--voiceflow-color);
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 4rem 0 2rem;
+      position: relative;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: var(--main-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--main-gradient);
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      margin-left: 0.5rem;
+    }
+
+    .badge-new {
+      background: var(--adi-gradient);
+    }
+
+    .badge-popular {
+      background: var(--voiceflow-gradient);
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin: 0 4px;
+      font-size: 0.8rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Clase para ocultar la versión inactiva */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Botones para cambiar de idioma (utilizamos emojis de banderas) -->
+    <div class="language-switcher">
+      <button class="language-btn active" id="btnSpanish">🇲🇽</button>
+      <button class="language-btn" id="btnEnglish">🇺🇸</button>
+      <button class="language-btn" id="btnPortuguese">🇧🇷</button>
+    </div>
+
+    <!-- ======================== VERSIÓN EN ESPAÑOL ======================== -->
+    <div id="spanishVersion">
+      <header>
+        <h1>Comparativo de Plataformas Conversacionales</h1>
+        <p class="subtitle">Análisis detallado de las soluciones líderes en IA para implementación de agentes conversacionales inteligentes</p>
+      </header>
+
+      <div class="card-container">
+        <!-- ADI Card -->
+        <div class="card">
+          <div class="card-header adi-header">
+            <div class="card-logo">
+              <span class="logo-placeholder adi-text">ADI</span>
+            </div>
+            <h2 class="card-title">ADI</h2>
+            <p class="card-subtitle">Backend as a Service + Agentes IA</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item adi-check">
+                <span class="highlight-text">Especialización financiera</span> con alto nivel de verticalización
+              </li>
+              <li class="feature-item adi-check">
+                Backend completo No-code con despliegue multi-entorno
+              </li>
+              <li class="feature-item adi-check">
+                Agentes orquestadores con LangGraph optimizado
+              </li>
+              <li class="feature-item adi-check">
+                Control total de datos en infraestructura propia
+              </li>
+              <li class="feature-item adi-check">
+                Memorización con grafos de conocimiento avanzados
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Kore.ai Card -->
+        <div class="card">
+          <div class="card-header koreai-header">
+            <div class="card-logo">
+              <span class="logo-placeholder koreai-text">K.AI</span>
+            </div>
+            <h2 class="card-title">Kore.ai</h2>
+            <p class="card-subtitle">Enterprise Automation Platform</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item koreai-check">
+                Soluciones verticales multi-industria con enfoque CX/EX
+              </li>
+              <li class="feature-item koreai-check">
+                Motor NLU propietario con reconocimiento contextual
+              </li>
+              <li class="feature-item koreai-check">
+                Soporte +35 canales con integraciones para contact centers
+              </li>
+              <li class="feature-item koreai-check">
+                +100 conectores preconstruidos para sistemas empresariales
+              </li>
+              <li class="feature-item koreai-check">
+                Certificaciones enterprise con despliegue on-premise
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Voiceflow Card -->
+        <div class="card">
+          <div class="card-header voiceflow-header">
+            <div class="card-logo">
+              <span class="logo-placeholder voiceflow-text">VF</span>
+            </div>
+            <h2 class="card-title">Voiceflow</h2>
+            <p class="card-subtitle">Conversational Design Platform</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item voiceflow-check">
+                Plataforma no-code/low-code para prototipado ágil
+              </li>
+              <li class="feature-item voiceflow-check">
+                Integración multi-engine con diversos LLMs
+              </li>
+              <li class="feature-item voiceflow-check">
+                Editor drag-and-drop con colaboración en tiempo real
+              </li>
+              <li class="feature-item voiceflow-check">
+                +300 integraciones pre-armadas con marketplace extenso
+              </li>
+              <li class="feature-item voiceflow-check">
+                Plan freemium con escalabilidad para equipos
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Análisis Comparativo por Área</h2>
+
+      <div class="comparison-table-container">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Área Funcional</th>
+              <th>Kore.ai</th>
+              <th>Voiceflow</th>
+              <th class="adi-column">ADI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Enfoque Principal</td>
+              <td>
+                <div>Plataforma enterprise con soluciones verticales para múltiples industrias. Orientada a CX/EX e hiperautomatización.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Plataforma no-code/low-code para desarrollar experiencias conversacionales ágiles. Ideal para equipos multidisciplinarios.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><strong>Backend as a Service + creador de agentes inteligentes</strong> especializado en industria financiera. <span class="tag">Permite crear SaaS AIs empresariales completas</span>.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2. Arquitectura</td>
+              <td>
+                <div>Microservicios modulares con despliegue cloud u on-premise. Integraciones corporativas robustas.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>SaaS en nube con microservicios contenerizados. Editor web colaborativo e integraciones API.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Arquitectura flexible con <span class="tag">despliegue multi-entorno (AWS/GCP/Azure/On-premise)</span>. <span class="tag">CI-CD automatizado</span> y control total de datos.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3. Diseño de Bots</td>
+              <td>
+                <div>Consola visual con configuración detallada de IA y entidades. Requiere configuración técnica avanzada.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Editor drag-and-drop ultra intuitivo. Prototipado rápido y diseño conversacional centrado en UX.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Creador de agentes inteligentes <span class="tag">optimizado con LangGraph</span>. Permite <span class="tag">orquestación avanzada</span> con llamadas HTTP y flujos complejos.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4. IA Conversacional</td>
+              <td>
+                <div>Motor NLU propietario con ML avanzado. Reconocimiento de contexto y multi-intent.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Integración multi-engine con LLMs (OpenAI, Anthropic). Bases vectoriales para QA contextual.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">Sistema de memorización óptimo con grafos de conocimiento</span>. Compatibilidad RAG avanzada y Knowledge Graphs especializados.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>5. Canales</td>
+              <td>
+                <div>Soporte para +35 canales (web, móvil, redes sociales, IVR). Fuerte integración con telefonía empresarial.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Nativo para asistentes de voz expandido a chat. Widget omnicanal e IVR inteligente.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Integración con canales empresariales clave (WhatsApp, Messenger, Slack, Web, WeChat) <span class="tag">optimizados para sector financiero</span>.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>6. Integraciones</td>
+              <td>
+                <div>+100 conectores preconstruidos para sistemas empresariales. Integración con RPA y back-office.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>+300 integraciones con marketplace extenso. Bloques API y JS para personalización.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">Backend completo No-code</span> con conexión a bases de datos empresariales. <span class="tag">Llamadas HTTP universales</span> e integración entre backend y agentes.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>7. Pricing</td>
+              <td>
+                <div>Licencias Enterprise personalizadas por uso/sesiones. Planes PyMEs disponibles. Costo premium.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Suscripción por editores + tokens IA. Plan freemium y opciones escalables ($60-$125/editor).</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Modelo enterprise con <span class="tag">monitoreo de actividad y límites personalizables</span>. Enfocado en valor empresarial para sector financiero.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>8. Seguridad</td>
+              <td>
+                <div>Certificaciones enterprise (ISO 27001, SOC 2, GDPR). Opción on-premise para sectores regulados.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Seguridad SSO y SOC II para planes enterprise. VPC privada disponible.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Autenticación RBAC avanzada con reglas de acceso granulares. Control total de datos en infraestructura propia.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>9. Analítica</td>
+              <td>
+                <div>Dashboards en tiempo real para monitoreo de conversaciones, NLU y tasas de éxito.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Métricas integradas de uso, intenciones y tokens. Simulador para testing.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Monitoreo avanzado de actividad con optimización automática de flujos para máximo rendimiento.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>10. Casos de Uso</td>
+              <td>
+                <div>Líder en banca, seguros y retail con alta complejidad transaccional. Contact centers de volumen.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Desde startups hasta enterprise para prototipado rápido. Versatilidad en proyectos UX conversacional.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Especialista en soluciones financieras enterprise. SaaS AI verticalizadas con alta personalización sectorial.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>11. No-Code</td>
+              <td>
+                <div>Equilibrio entre interfaz visual y configuración técnica profunda. Curva de aprendizaje media-alta.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Altamente no-code con capacidad para inyectar código cuando necesario. Curva de aprendizaje baja.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Backend y agentes completamente No-code con capacidad para flujos altamente complejos sin programación.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>12. Aceleradores</td>
+              <td>
+                <div>Módulos verticales específicos (BankAssist, HR Assist) para acelerar implementación.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Templates para casos de uso genéricos. Componentes reutilizables no específicos de industria.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Soluciones especializadas para industria financiera con interfaces listas para implementación inmediata.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>13. Colaboración</td>
+              <td>
+                <div>Roles de usuario y consola multiusuario. Gestión de accesos empresariales.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Edición colaborativa en tiempo real. Control de versiones y comentarios integrados.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Environments completos (Dev/Staging/Prod) con RBAC integrado para equipos enterprise.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="footer">
+        <p>© 2025 ADI - Todos los derechos reservados</p>
+      </footer>
+    </div>
+    <!-- ======================== FIN VERSIÓN EN ESPAÑOL ======================== -->
+
+
+    <!-- ======================== VERSIÓN EN INGLÉS ======================== -->
+    <div id="englishVersion" class="hidden">
+      <header>
+        <h1>Comparative Overview of Conversational AI Platforms</h1>
+        <p class="subtitle">In-depth analysis of leading AI solutions for building advanced, enterprise-grade conversational experiences</p>
+      </header>
+
+      <div class="card-container">
+        <!-- ADI Card -->
+        <div class="card">
+          <div class="card-header adi-header">
+            <div class="card-logo">
+              <span class="logo-placeholder adi-text">ADI</span>
+            </div>
+            <h2 class="card-title">ADI</h2>
+            <p class="card-subtitle">Backend as a Service + AI Agents</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item adi-check">
+                <span class="highlight-text">Tailored financial specialization</span> with deep vertical solutions
+              </li>
+              <li class="feature-item adi-check">
+                Comprehensive no-code backend featuring multi-environment deployments
+              </li>
+              <li class="feature-item adi-check">
+                Orchestrator agents with an optimized LangGraph for streamlined AI flows
+              </li>
+              <li class="feature-item adi-check">
+                Complete data sovereignty on your own infrastructure or cloud
+              </li>
+              <li class="feature-item adi-check">
+                Cutting-edge knowledge graph memory for robust contextual handling
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Kore.ai Card -->
+        <div class="card">
+          <div class="card-header koreai-header">
+            <div class="card-logo">
+              <span class="logo-placeholder koreai-text">K.AI</span>
+            </div>
+            <h2 class="card-title">Kore.ai</h2>
+            <p class="card-subtitle">Enterprise Automation Platform</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item koreai-check">
+                End-to-end enterprise automation solutions with a strong CX/EX focus
+              </li>
+              <li class="feature-item koreai-check">
+                Proprietary, context-aware NLU engine for accurate understanding
+              </li>
+              <li class="feature-item koreai-check">
+                Support for 35+ channels, including voice, chat, and contact centers
+              </li>
+              <li class="feature-item koreai-check">
+                100+ pre-built connectors for seamless integration with enterprise systems
+              </li>
+              <li class="feature-item koreai-check">
+                Industry-grade certifications and on-premise deployment options
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Voiceflow Card -->
+        <div class="card">
+          <div class="card-header voiceflow-header">
+            <div class="card-logo">
+              <span class="logo-placeholder voiceflow-text">VF</span>
+            </div>
+            <h2 class="card-title">Voiceflow</h2>
+            <p class="card-subtitle">Conversational Design Platform</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item voiceflow-check">
+                Intuitive no-code/low-code environment for rapid prototyping
+              </li>
+              <li class="feature-item voiceflow-check">
+                Multi-LLM integration supporting top-tier Large Language Models
+              </li>
+              <li class="feature-item voiceflow-check">
+                Real-time collaboration with drag-and-drop conversation design
+              </li>
+              <li class="feature-item voiceflow-check">
+                300+ ready-to-use integrations through an extensive marketplace
+              </li>
+              <li class="feature-item voiceflow-check">
+                Freemium model that scales to match growing team needs
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Comparative Analysis by Area</h2>
+
+      <div class="comparison-table-container">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Functional Area</th>
+              <th>Kore.ai</th>
+              <th>Voiceflow</th>
+              <th class="adi-column">ADI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Main Focus</td>
+              <td>
+                <div>An enterprise-grade platform with vertical solutions spanning multiple industries, aimed at enhancing CX/EX through hyperautomation.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>A no-code/low-code solution that empowers cross-functional teams to quickly build impactful conversational experiences.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><strong>Backend as a Service + AI agent builder</strong> specialized in finance, enabling fully developed enterprise SaaS AI solutions.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2. Architecture</td>
+              <td>
+                <div>Modular microservices architecture with both cloud and on-premise options. Ideal for robust enterprise integrations.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>A SaaS model leveraging containerized microservices, with a collaborative web editor and API-based extensibility.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Highly flexible, supporting <span class="tag">AWS/GCP/Azure/on-premise multi-environment</span> deployments. <span class="tag">Automated CI/CD</span> with full data control.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3. Bot Design</td>
+              <td>
+                <div>A visual console offering granular AI and entity configurations, requiring moderate technical expertise for advanced scenarios.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Ultra-intuitive drag-and-drop interface that prioritizes rapid prototyping and user-centered conversation design.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Powerful agent creation <span class="tag">optimized with LangGraph</span>, supporting <span class="tag">advanced orchestration</span> via HTTP calls and complex flows.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4. Conversational AI</td>
+              <td>
+                <div>A proprietary NLU engine powered by advanced ML, delivering robust context and multi-intent recognition.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Multi-engine approach, integrating LLMs (OpenAI, Anthropic), plus vector databases for context-rich QA.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">Sophisticated knowledge-graph memory</span> enabling advanced RAG (Retrieval-Augmented Generation) for specialized domains.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>5. Channels</td>
+              <td>
+                <div>Coverage for 35+ channels (web, mobile, social, IVR), with extensive enterprise telephony integration.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Born for voice assistants and expanded to chat. Offers an omnichannel widget and intelligent IVR capabilities.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Focus on key enterprise channels (WhatsApp, Messenger, Slack, Web, WeChat), <span class="tag">optimized for finance</span>.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>6. Integrations</td>
+              <td>
+                <div>Over 100 pre-built connectors for enterprise systems, plus RPA and back-office integration to streamline workflows.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>300+ integrations available via a robust marketplace, alongside API and JS blocks for enhanced customization.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">End-to-end no-code backend</span> linked to enterprise databases, featuring <span class="tag">universal HTTP calls</span> and integrated agent orchestration.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>7. Pricing</td>
+              <td>
+                <div>Enterprise licensing tailored by usage and sessions, with SME options available. Premium cost structure.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Seat-based plans per editor plus AI tokens. Freemium tier and scalable pricing ($60–$125/editor).</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Enterprise-focused model with <span class="tag">activity monitoring and customizable usage thresholds</span>, targeted at high-value financial solutions.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>8. Security</td>
+              <td>
+                <div>Enterprise-grade certifications (ISO 27001, SOC 2, GDPR) with on-premise options for heavily regulated environments.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>SSO security and SOC II for enterprise tiers, with private VPC setups available for added control.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Granular RBAC authentication for precise access control, ensuring complete data sovereignty in private infrastructure.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>9. Analytics</td>
+              <td>
+                <div>Real-time dashboards for conversation monitoring, NLU metrics, and success analysis to drive continuous improvements.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Built-in tracking of usage, intents, and tokens. Includes a simulator for rapid testing cycles.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Advanced activity monitoring with automated flow optimization, designed to maximize performance and efficiency.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>10. Use Cases</td>
+              <td>
+                <div>Excels in banking, insurance, and retail for high-volume, complex transactional flows, including large contact centers.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Suitable for both startups and enterprises seeking fast prototyping and broad creative freedom in conversational UX.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Highly specialized in enterprise financial services, offering deeply customizable SaaS AI solutions for this sector.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>11. No-Code</td>
+              <td>
+                <div>Combines a visual interface with deeper technical configurations, offering a moderate-to-high learning curve.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Primarily no-code, allowing optional code injection when needed. Easy to onboard, with a gentle learning curve.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Delivers a fully no-code approach across both backend services and agent logic, handling even complex workflows without coding.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>12. Accelerators</td>
+              <td>
+                <div>Vertical modules (BankAssist, HR Assist) for rapid deployment and reduced time-to-market.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Pre-built templates for generic use cases, offering reusable components not tied to specific industries.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Industry-specialized modules for financial services featuring ready-to-deploy interfaces that minimize setup time.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>13. Collaboration</td>
+              <td>
+                <div>Role-based user management within a multi-user console, offering robust enterprise security controls.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Real-time collaborative editing, version control, and built-in comments for efficient teamwork.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Fully managed environments (Dev/Staging/Prod) with integrated RBAC, tailored for large enterprise teams.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="footer">
+        <p>© 2025 ADI - All rights reserved</p>
+      </footer>
+    </div>
+    <!-- ======================== FIN VERSIÓN EN INGLÉS ======================== -->
+
+
+    <!-- ======================== VERSIÓN EN PORTUGUÉS ======================== -->
+    <div id="portugueseVersion" class="hidden">
+      <header>
+        <h1>Comparativo de Plataformas de Conversação</h1>
+        <p class="subtitle">Análise detalhada das principais soluções de IA para a implementação de agentes conversacionais avançados</p>
+      </header>
+
+      <div class="card-container">
+        <!-- ADI Card -->
+        <div class="card">
+          <div class="card-header adi-header">
+            <div class="card-logo">
+              <span class="logo-placeholder adi-text">ADI</span>
+            </div>
+            <h2 class="card-title">ADI</h2>
+            <p class="card-subtitle">Backend as a Service + Agentes de IA</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item adi-check">
+                <span class="highlight-text">Especialização financeira</span> com alto nível de soluções verticais
+              </li>
+              <li class="feature-item adi-check">
+                Backend completo no-code com suporte a múltiplos ambientes de implantação
+              </li>
+              <li class="feature-item adi-check">
+                Agentes orquestradores com LangGraph otimizado para fluxos de IA
+              </li>
+              <li class="feature-item adi-check">
+                Controle total de dados em infraestrutura própria ou na nuvem
+              </li>
+              <li class="feature-item adi-check">
+                Grafos de conhecimento avançados para memorização e contexto robusto
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Kore.ai Card -->
+        <div class="card">
+          <div class="card-header koreai-header">
+            <div class="card-logo">
+              <span class="logo-placeholder koreai-text">K.AI</span>
+            </div>
+            <h2 class="card-title">Kore.ai</h2>
+            <p class="card-subtitle">Enterprise Automation Platform</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item koreai-check">
+                Soluções corporativas end-to-end com foco em CX/EX
+              </li>
+              <li class="feature-item koreai-check">
+                Motor de NLU proprietário com reconhecimento contextual de alta precisão
+              </li>
+              <li class="feature-item koreai-check">
+                Suporte a mais de 35 canais, incluindo voz, chat e contact centers
+              </li>
+              <li class="feature-item koreai-check">
+                Mais de 100 conectores pré-construídos para integração com sistemas empresariais
+              </li>
+              <li class="feature-item koreai-check">
+                Certificações de nível empresarial e opção de implantação on-premise
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+
+        <!-- Voiceflow Card -->
+        <div class="card">
+          <div class="card-header voiceflow-header">
+            <div class="card-logo">
+              <span class="logo-placeholder voiceflow-text">VF</span>
+            </div>
+            <h2 class="card-title">Voiceflow</h2>
+            <p class="card-subtitle">Plataforma de Design de Conversações</p>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item voiceflow-check">
+                Ambiente no-code/low-code altamente intuitivo para prototipagem rápida
+              </li>
+              <li class="feature-item voiceflow-check">
+                Integração multi-engine com diversos LLMs líderes de mercado
+              </li>
+              <li class="feature-item voiceflow-check">
+                Colaboração em tempo real com editor visual de arrastar e soltar
+              </li>
+              <li class="feature-item voiceflow-check">
+                Mais de 300 integrações pré-configuradas por meio de um marketplace extenso
+              </li>
+              <li class="feature-item voiceflow-check">
+                Plano freemium que escala conforme o crescimento da equipe
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Análise Comparativa por Área</h2>
+
+      <div class="comparison-table-container">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Área Funcional</th>
+              <th>Kore.ai</th>
+              <th>Voiceflow</th>
+              <th class="adi-column">ADI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Foco Principal</td>
+              <td>
+                <div>Plataforma empresarial com soluções verticais para múltiplos setores, voltada para CX/EX e hiperautomatização.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Ferramenta no-code/low-code para construir experiências conversacionais de forma ágil, ideal para equipes multidisciplinares.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><strong>Backend as a Service + criador de agentes de IA</strong> especializado no setor financeiro. <span class="tag">Possibilita criar SaaS de IA empresariais completas</span>.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2. Arquitetura</td>
+              <td>
+                <div>Microserviços modulares com implantação em nuvem ou on-premise. Forte integração corporativa.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Modelo SaaS em nuvem com microserviços em contêiner. Editor web colaborativo e integrações via API.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Arquitetura altamente flexível com <span class="tag">implantação multiambiente (AWS/GCP/Azure/On-premise)</span>. <span class="tag">CI/CD automatizado</span> e controle total de dados.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3. Criação de Bots</td>
+              <td>
+                <div>Console visual com configurações detalhadas de IA e entidades. Requer conhecimento técnico intermediário-avançado.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Interface drag-and-drop extremamente intuitiva, permitindo prototipagem rápida e design focado em UX conversacional.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Criador de agentes inteligentes <span class="tag">otimizado com LangGraph</span>, permitindo <span class="tag">orquestração avançada</span> com chamadas HTTP e fluxos complexos.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4. IA Conversacional</td>
+              <td>
+                <div>Motor NLU proprietário com ML avançado. Reconhecimento de contexto e múltiplas intenções.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Abordagem multi-engine, integrando LLMs (OpenAI, Anthropic) e bases vetoriais para QA contextual.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">Memorização sofisticada via grafos de conhecimento</span>, habilitando RAG (Retrieval-Augmented Generation) avançado para domínios específicos.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>5. Canais</td>
+              <td>
+                <div>Cobertura para mais de 35 canais (web, mobile, redes sociais, IVR), com sólida integração em telefonia empresarial.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Nascida para assistentes de voz e expandida a chat. Oferece widget omnichannel e IVR inteligente.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Foco nos principais canais empresariais (WhatsApp, Messenger, Slack, Web, WeChat) <span class="tag">otimizados para finanças</span>.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>6. Integrações</td>
+              <td>
+                <div>Mais de 100 conectores pré-construídos para sistemas empresariais. Integração com RPA e back-office.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Mais de 300 integrações disponíveis em um marketplace robusto, além de blocos API e JS para customização avançada.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div><span class="tag">Backend no-code completo</span> integrado a bancos de dados corporativos, com <span class="tag">chamadas HTTP universais</span> e orquestração entre back-end e agentes.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>7. Preços</td>
+              <td>
+                <div>Licenças empresariais personalizadas por uso/sessões, com planos para PMEs. Custo premium.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Planos com cobrança por editor + uso de tokens de IA. Camada freemium e opções escaláveis (US$ 60–125/editor).</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Modelo voltado para grandes empresas, com <span class="tag">monitoramento de atividade e limites configuráveis</span>, focado em valor corporativo para finanças.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>8. Segurança</td>
+              <td>
+                <div>Certificações de nível empresarial (ISO 27001, SOC 2, GDPR) e opção on-premise para setores altamente regulados.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Segurança SSO e SOC II para planos empresariais. VPC privada disponível para maior controle.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Autenticação RBAC granular para controle minucioso de acesso, garantindo soberania total dos dados.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>9. Análise</td>
+              <td>
+                <div>Dashboards em tempo real para monitoramento de conversas, métricas de NLU e taxas de sucesso.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Métricas integradas de uso, intenções e tokens. Simulador para testes rápidos.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Monitoramento avançado de atividade com otimização automatizada de fluxos para máximo desempenho.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>10. Casos de Uso</td>
+              <td>
+                <div>Destaque em bancos, seguros e varejo, com alta complexidade transacional e grandes contact centers.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Ideal para startups e empresas que buscam prototipagem veloz e grande liberdade criativa em UX conversacional.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Extremamente especializada em serviços financeiros corporativos, oferecendo soluções de IA SaaS altamente personalizáveis para esse setor.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>11. No-Code</td>
+              <td>
+                <div>Equilíbrio entre interface visual e configurações técnicas avançadas, com curva de aprendizado média-alta.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Predominantemente no-code, permitindo inserção de código quando necessário. Curva de aprendizado suave.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Oferece uma abordagem totalmente no-code tanto no backend quanto na lógica dos agentes, suportando até fluxos complexos sem programação.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>12. Aceleradores</td>
+              <td>
+                <div>Módulos verticais (BankAssist, HR Assist) para implantação rápida e menor time-to-market.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Modelos pré-criados para casos de uso genéricos, com componentes reutilizáveis sem foco setorial específico.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Módulos especializados para o setor financeiro, com interfaces prontas para implantação imediata.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>13. Colaboração</td>
+              <td>
+                <div>Gerenciamento de usuários baseado em funções e console multiusuário, com altos padrões de segurança empresarial.</div>
+                <div class="feature-value">
+                  <div class="rating koreai-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>Edição colaborativa em tempo real, controle de versão e comentários integrados para uma equipe eficiente.</div>
+                <div class="feature-value">
+                  <div class="rating voiceflow-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="adi-column">
+                <div>Ambientes completos (Dev/Staging/Prod) com RBAC integrado, ideal para grandes equipes corporativas.</div>
+                <div class="feature-value">
+                  <div class="rating adi-rating">
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot filled"></div>
+                    <div class="rating-dot"></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="footer">
+        <p>© 2025 ADI - Todos os direitos reservados</p>
+      </footer>
+    </div>
+    <!-- ======================== FIN VERSIÓN EN PORTUGUÉS ======================== -->
+  </div>
+
+  <!-- Script para conmutar entre las versiones de idioma -->
+  <script>
+    const btnSpanish = document.getElementById('btnSpanish');
+    const btnEnglish = document.getElementById('btnEnglish');
+    const btnPortuguese = document.getElementById('btnPortuguese');
+
+    const spanishVersion = document.getElementById('spanishVersion');
+    const englishVersion = document.getElementById('englishVersion');
+    const portugueseVersion = document.getElementById('portugueseVersion');
+
+    btnSpanish.addEventListener('click', () => {
+      // Mostrar versión en español, ocultar el resto
+      spanishVersion.classList.remove('hidden');
+      englishVersion.classList.add('hidden');
+      portugueseVersion.classList.add('hidden');
+
+      // Ajustar estilos de botones
+      btnSpanish.classList.add('active');
+      btnEnglish.classList.remove('active');
+      btnPortuguese.classList.remove('active');
+    });
+
+    btnEnglish.addEventListener('click', () => {
+      // Mostrar versión en inglés, ocultar el resto
+      englishVersion.classList.remove('hidden');
+      spanishVersion.classList.add('hidden');
+      portugueseVersion.classList.add('hidden');
+
+      // Ajustar estilos de botones
+      btnEnglish.classList.add('active');
+      btnSpanish.classList.remove('active');
+      btnPortuguese.classList.remove('active');
+    });
+
+    btnPortuguese.addEventListener('click', () => {
+      // Mostrar versión en portugués, ocultar el resto
+      portugueseVersion.classList.remove('hidden');
+      spanishVersion.classList.add('hidden');
+      englishVersion.classList.add('hidden');
+
+      // Ajustar estilos de botones
+      btnPortuguese.classList.add('active');
+      btnSpanish.classList.remove('active');
+      btnEnglish.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
